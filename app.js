@@ -6,6 +6,28 @@ let isPaused = false;
 let blindTimeGlobal;
 let startTime;
 let gameLog = [];
+let wakeLock = null;
+
+async function requestWakeLock() {
+    try {
+        wakeLock = await navigator.wakeLock.request('screen');
+        console.log('Wake Lock aktiv');
+    } catch (err) {
+        console.error('Wake Lock fehlgeschlagen:', err);
+    }
+}
+
+function releaseWakeLock() {
+    if (wakeLock !== null) {
+        wakeLock.release()
+            .then(() => {
+                wakeLock = null;
+                console.log('Wake Lock freigegeben');
+            });
+    }
+}
+
+
 
 document.getElementById('startBtn').addEventListener('click', () => {
     // Clear the previous game log when a new game starts
@@ -37,6 +59,9 @@ document.getElementById('startBtn').addEventListener('click', () => {
     document.getElementById('startBtn').disabled = true;
 
     startBlindTimer(blindTime);
+
+    // Wake Lock aktivieren, wenn das Spiel startet
+    requestWakeLock();
 });
 
 
@@ -74,6 +99,9 @@ document.getElementById('endBtn').addEventListener('click', () => {
 
     // Re-enable start button for a new game
     document.getElementById('startBtn').disabled = false;
+
+    // Wake Lock freigeben, wenn das Spiel beendet wird
+    releaseWakeLock();
 });
 
 document.getElementById('downloadLogBtn').addEventListener('click', downloadGameLog);
