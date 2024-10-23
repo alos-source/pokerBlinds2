@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poker Blind Timer</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Manifest Link -->
+    <link rel="manifest" href="/manifest.json">
+
+    <!-- Theme color for mobile status bar -->
+    <meta name="theme-color" content="#28a745">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Poker Blind Timer</h1>
+        <div>
+            <label for="blindTime">Blind Duration (in minutes):</label>
+            <input type="number" id="blindTime" value="15">
+        </div>
+        <div>
+            <label for="blindLevels">Blind Levels (comma separated):</label>
+            <input type="text" id="blindLevels" value="25/50, 50/100, 100/200, 200/400, 300/600, 400/800, 600/1200, 800/1600, 1200/2400, 1600/3200">
+        </div>
+        <button id="startBtn">Start Timer</button>
+        <button id="pauseBtn" style="display: none;">Pause</button>
+        <button id="resetBtn" style="display: none;">Reset</button>
+        <button id="endBtn" style="display: none;">End Game</button>
+
+        <h2 id="currentBlind">Current Blind: -</h2>
+        <h3 id="timeRemaining">Time Remaining: -</h3>
+
+        <div id="gameLogContainer" style="display:none;">
+            <h3>Game Log</h3>
+            <pre id="gameLog"></pre>
+            <button id="downloadLogBtn">Download Log</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').then(registration => {
+                    console.log('Service Worker registered with scope:', registration.scope);
+                }).catch(error => {
+                    console.error('Service Worker registration failed:', error);
+                });
+            });
+        }
+    </script>
+
+</body>
+</html>
