@@ -1,0 +1,35 @@
+name: Run Jest Tests
+
+on:
+  push:
+    branches:
+      - master  # Ausführen der Tests bei einem Push zum main-Branch
+  pull_request:
+    branches:
+      - master  # Ausführen der Tests bei einem Pull-Request auf main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest  # Verwende die neueste Ubuntu-Version
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3  # Klont das Repository
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'  # Setze die Node.js-Version
+
+      - name: Install dependencies
+        run: npm install  # Installiere npm-Abhängigkeiten
+
+      - name: Run Jest Tests
+        run: npm test  # Führe die Jest-Tests aus
+
+      - name: Upload test results
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: jest-results
+          path: jest-results.txt  # Speicher die Testergebnisse als Artefakt
