@@ -1,0 +1,16 @@
+{
+  "name": "PokerTimer",
+  "version": "1.0.0",
+  "description": "Timer for a game of Poker",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    "jest": "^27.0.0"
+  },
+  "devDependencies": {},
+  "keywords": [],
+  "author": "Alexander O.",
+  "license": "ISC"
+}
