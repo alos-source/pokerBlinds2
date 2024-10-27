@@ -185,9 +185,9 @@ function downloadGameLog() {
 
 document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
-        pauseTimer();
+        //pauseTimer();
     } else if (isPaused) {
-        resumeTimer();
+        //resumeTimer();
     }
 
     logEvent("visibility changed");
