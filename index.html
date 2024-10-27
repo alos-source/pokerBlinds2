@@ -37,7 +37,18 @@
             <pre id="gameLog"></pre>
             <button id="downloadLogBtn">Download Log</button>
         </div>
+    
     </div>
+
+      <footer>
+        <p>Last build: <span id="build-timestamp">Lade Zeitstempel...</span></p>
+    <!--    <p><a href="#">Datenschutz</a> | <a href="#">Impressum</a></p> -->
+    </footer>
+      
+      <script>
+        document.getElementById('build-timestamp').textContent = "${process.env.BUILD_TIMESTAMP}";
+      </script>
+      
 
     <script src="app.js"></script>
 

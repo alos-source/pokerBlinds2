@@ -60,3 +60,48 @@ button:disabled {
 .warning {
     color: red;
 }
+
+footer {
+    background-color: #333; /* Dunkler Hintergrund */
+    color: #fff; /* Weiße Schriftfarbe */
+    text-align: center; /* Text zentriert */
+    padding: 10px 20px; /* Innenabstand */
+    /*width: 100%;  Dehnt den Footer über die gesamte Breite */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5); /* Schatten-Effekt für Tiefe */
+    position: relative; /* Positionierung für Styling */
+}
+
+footer p {
+    margin: 0; /* Entfernt Standard-Margin */
+    font-size: 14px; /* Schriftgröße */
+}
+
+footer a {
+    color: #fff; /* Weiße Schriftfarbe für Links */
+    text-decoration: none; /* Keine Unterstreichung */
+}
+
+footer a:hover {
+    text-decoration: underline; /* Unterstreicht Links beim Hover */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column; /* Fügt Flex-Richtung hinzu */
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    flex: 1; /* Lässt die Container die verbleibende Höhe einnehmen */
+}
