@@ -8,7 +8,7 @@ let startTime;
 let gameLog = [];
 let wakeLock = null;
 
-document.getElementById('build-timestamp').textContent = "${process.env.BUILD_TIMESTAMP}";
+//document.getElementById('build-timestamp').textContent = "${process.env.BUILD_TIMESTAMP}";
 
 function getBuildDate(){
 
@@ -17,9 +17,10 @@ function getBuildDate(){
     .then(data => {
         document.getElementById('build-timestamp').innerText = data;
     });
+    console.log('Fetching build timestamp...');
 
 }
-
+window.onload = getBuildDate;
 getBuildDate();
 
 async function requestWakeLock() {
