@@ -10,6 +10,18 @@ let wakeLock = null;
 
 document.getElementById('build-timestamp').textContent = "${process.env.BUILD_TIMESTAMP}";
 
+function getBuildDate(){
+
+    fetch('build_timestamp.txt')
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById('build-timestamp').innerText = data;
+    });
+
+}
+
+getBuildDate();
+
 async function requestWakeLock() {
     try {
         wakeLock = await navigator.wakeLock.request('screen');
