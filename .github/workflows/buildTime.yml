@@ -1,2 +1,16 @@
-name: Set build timestamp
-run: echo "BUILD_TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")" >> $GITHUB_ENV
+name: Build Timestamp
+
+on:
+  push:
+    branches:
+      - main  # oder der Branch, den du überwachen möchtest
+
+jobs:
+  set-build-timestamp:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set build timestamp
+        run: echo "BUILD_TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")" >> $GITHUB_ENV
+      
+      - name: Check build timestamp
+        run: echo "Build Timestamp: $BUILD_TIMESTAMP"
