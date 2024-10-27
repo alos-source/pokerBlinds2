@@ -94,7 +94,7 @@ document.getElementById('endBtn').addEventListener('click', () => {
 
 document.getElementById('downloadLogBtn').addEventListener('click', downloadGameLog);
 
-function startBlindTimer(blindTime) {
+export function startBlindTimer(blindTime) {
     if (blinds.length === 0) return;
     
     updateBlindDisplay();
@@ -130,20 +130,20 @@ function startBlindTimer(blindTime) {
     }, 1000);
 }
 
-function pauseTimer() {
+export function pauseTimer() {
     isPaused = true;
     clearInterval(timerInterval);
     logEvent("Game paused");
 }
 
-function resumeTimer() {
+export function resumeTimer() {
     isPaused = false;
     startTime = Date.now(); // Setze Startzeit neu
     startBlindTimer(timeRemaining); // Fahre fort
     logEvent("Game resumed");
 }
 
-function resetTimer() {
+export function resetTimer() {
     isPaused = false;
     timeRemaining = blindTimeGlobal;
     logEvent("Timer reset");
@@ -151,7 +151,7 @@ function resetTimer() {
     document.getElementById('resetBtn').disabled = true;
 }
 
-function endGame() {
+export function endGame() {
     clearInterval(timerInterval);
     logEvent("Game ended at: " + new Date().toLocaleString());
     logEvent("Final Blind: " + blinds[currentBlindIndex - 1 + 1]);
@@ -164,11 +164,11 @@ function endGame() {
     document.getElementById('endBtn').disabled = true;
 }
 
-function updateBlindDisplay() {
+export function updateBlindDisplay() {
     document.getElementById('currentBlind').textContent = `Current Blind: ${blinds[currentBlindIndex]}`;
 }
 
-function updateTimeDisplay() {
+export function updateTimeDisplay() {
     const minutes = Math.floor(timeRemaining / 60);
     const seconds = timeRemaining % 60;
     document.getElementById('timeRemaining').textContent = `Time Remaining: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
@@ -179,7 +179,7 @@ function playWarningSound() {
     audio.play();
 }
 
-function logEvent(event) {
+export function logEvent(event) {
     const timestamp = new Date().toLocaleTimeString();
     gameLog.push(`[${timestamp}] ${event}`);
 }
