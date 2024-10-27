@@ -8,6 +8,8 @@ let startTime;
 let gameLog = [];
 let wakeLock = null;
 
+document.getElementById('build-timestamp').textContent = "${process.env.BUILD_TIMESTAMP}";
+
 async function requestWakeLock() {
     try {
         wakeLock = await navigator.wakeLock.request('screen');
