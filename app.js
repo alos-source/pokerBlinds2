@@ -11,9 +11,9 @@ let wakeLock = null;
 async function requestWakeLock() {
     try {
         wakeLock = await navigator.wakeLock.request('screen');
-        console.log('Wake Lock aktiv');
+        console.log('Wake Lock active');
     } catch (err) {
-        console.error('Wake Lock fehlgeschlagen:', err);
+        console.error('Wake Lock error:', err);
     }
 }
 
@@ -22,64 +22,44 @@ function releaseWakeLock() {
         wakeLock.release()
             .then(() => {
                 wakeLock = null;
-                console.log('Wake Lock freigegeben');
+                console.log('Wake Lock release');
             });
     }
 }
 
-
-
 document.getElementById('startBtn').addEventListener('click', () => {
-    // Clear the previous game log when a new game starts
     gameLog = [];
-
-    const blindTime = parseInt(document.getElementById('blindTime').value) * 60; // in Sekunden
+    const blindTime = parseInt(document.getElementById('blindTime').value) * 60;
     blinds = document.getElementById('blindLevels').value.split(',').map(b => b.trim());
     currentBlindIndex = 0;
-    //blindTimeGlobal = blindTime;
-    startTime = new Date();
+    blindTimeGlobal = blindTime;
+    startTime = Date.now(); // Speichere die Startzeit für die Zeitberechnung
+    timeRemaining = blindTimeGlobal;
     startBlindTimer(blindTime);
+    
+    document.getElementById('gameLogContainer').style.display = 'none';
+    logEvent("Game started at: " + new Date(startTime).toLocaleString());
 
-    document.getElementById('gameLogContainer').style.display = 'none'; // Hide previous log
-
-    logEvent("Game started at: " + startTime.toLocaleString());
-
-    // Disable input fields after the game starts
     document.getElementById('blindTime').disabled = true;
     document.getElementById('blindLevels').disabled = true;
-
-    // Show and enable Pause, Reset, and End buttons
     document.getElementById('pauseBtn').style.display = 'inline-block';
     document.getElementById('pauseBtn').disabled = false;
-    //document.getElementById('resetBtn').style.display = 'inline-block';
-    //document.getElementById('resetBtn').disabled = false;
     document.getElementById('endBtn').style.display = 'inline-block';
     document.getElementById('endBtn').disabled = false;
-
-    // Disable the Start button to prevent starting the game again
     document.getElementById('startBtn').disabled = true;
 
-    //startBlindTimer(blindTime);
-
-    // Wake Lock aktivieren, wenn das Spiel startet
     requestWakeLock();
 });
-
 
 document.getElementById('pauseBtn').addEventListener('click', () => {
     if (!isPaused) {
         pauseTimer();
-        //logEvent("Game paused");
-
         document.getElementById('pauseBtn').textContent = "Resume";
-        // Enable reset and end game buttons during pause
         document.getElementById('resetBtn').disabled = false;
         document.getElementById('endBtn').disabled = false;
     } else {
         resumeTimer();
-        //logEvent("Game resumed");
         document.getElementById('pauseBtn').textContent = "Pause";
-        // Disable reset button while the game is running
         document.getElementById('resetBtn').disabled = true;
     }
 });
@@ -88,21 +68,12 @@ document.getElementById('resetBtn').addEventListener('click', resetTimer);
 
 document.getElementById('endBtn').addEventListener('click', () => {
     endGame();
-    //logEvent("Game ended");
-
-    // Re-enable inputs for a new game
     document.getElementById('blindTime').disabled = false;
     document.getElementById('blindLevels').disabled = false;
-    
-    // Hide and disable pause, reset, and end buttons
     document.getElementById('pauseBtn').style.display = 'none';
     document.getElementById('resetBtn').style.display = 'none';
     document.getElementById('endBtn').style.display = 'none';
-
-    // Re-enable start button for a new game
     document.getElementById('startBtn').disabled = false;
-
-    // Wake Lock freigeben, wenn das Spiel beendet wird
     releaseWakeLock();
 });
 
@@ -110,12 +81,12 @@ document.getElementById('downloadLogBtn').addEventListener('click', downloadGame
 
 function startBlindTimer(blindTime) {
     if (blinds.length === 0) return;
-
+    
     updateBlindDisplay();
     timeRemaining = blindTime;
     isPaused = false;
 
-    clearInterval(timerInterval); // Stoppe vorherigen Timer
+    clearInterval(timerInterval);
     timerInterval = setInterval(() => {
         if (!isPaused) {
             timeRemaining--;
@@ -141,77 +112,38 @@ function startBlindTimer(blindTime) {
                 }
             }
         }
-    }, 1000); // Jede Sekunde aktualisieren
+    }, 1000);
 }
-
-function updateTimer() {
-    timerInterval = setInterval(() => {
-        // Berechne die verstrichene Zeit
-        const now = Date.now();
-        const elapsedTime = Math.floor((now - startTime) / 1000); // Zeit in Sekunden
-
-        // Berechne die verbleibende Zeit
-        const remaining = timeRemaining - elapsedTime;
-
-        if (remaining <= 0) {
-            clearInterval(timerInterval);
-            // Zeit für das nächste Blind-Level oder Ende des Spiels
-            displayRemainingTime(0);
-            // Trigger für nächste Stufe oder Spielende
-            alert("Blinds werden erhöht!");
-        } else {
-            displayRemainingTime(remaining);
-        }
-    }, 1000); // Aktualisiere jede Sekunde
-}
-
-function displayRemainingTime(remaining) {
-    const minutes = Math.floor(remaining / 60);
-    const seconds = remaining % 60;
-    document.getElementById('timerDisplay').textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-}
-
 
 function pauseTimer() {
     isPaused = true;
-    //document.getElementById('pauseBtn').textContent = "Resume";
     clearInterval(timerInterval);
     logEvent("Game paused");
-    timeRemaining = Math.floor((Date.now() - startTime) / 1000); // Berechne, wie viel Zeit vergangen ist
 }
 
 function resumeTimer() {
     isPaused = false;
-    //document.getElementById('pauseBtn').textContent = "Pause";
-    startBlindTimer(timeRemaining);
+    startTime = Date.now(); // Setze Startzeit neu
+    startBlindTimer(timeRemaining); // Fahre fort
     logEvent("Game resumed");
-    //startTime = Date.now(); // Setze die Startzeit neu
-    updateTimer();
 }
 
 function resetTimer() {
     isPaused = false;
-    document.getElementById('pauseBtn').textContent = "Pause";
     timeRemaining = blindTimeGlobal;
-    //updateTimeDisplay();
     logEvent("Timer reset");
-    
-    startBlindTimer(timeRemaining);  // Starte den Timer neu
-
-    // Disable reset button after resetting
+    startBlindTimer(timeRemaining);
     document.getElementById('resetBtn').disabled = true;
 }
 
 function endGame() {
     clearInterval(timerInterval);
     logEvent("Game ended at: " + new Date().toLocaleString());
-    logEvent("Final Blind: " + blinds[currentBlindIndex - 1 +1]);
+    logEvent("Final Blind: " + blinds[currentBlindIndex - 1 + 1]);
 
-    // Display game log and offer download
     document.getElementById('gameLogContainer').style.display = 'block';
     document.getElementById('gameLog').textContent = gameLog.join("\n");
-
-    // Disable all action buttons
+    
     document.getElementById('pauseBtn').disabled = true;
     document.getElementById('resetBtn').disabled = true;
     document.getElementById('endBtn').disabled = true;
@@ -252,5 +184,11 @@ function downloadGameLog() {
 
 document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
-        logEvent("visibility changed");
-}});
+        pauseTimer();
+    } else if (isPaused) {
+        resumeTimer();
+    }
+
+    logEvent("visibility changed");
+
+});
