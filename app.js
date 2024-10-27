@@ -8,20 +8,6 @@ let startTime;
 let gameLog = [];
 let wakeLock = null;
 
-//document.getElementById('build-timestamp').textContent = "${process.env.BUILD_TIMESTAMP}";
-
-function getBuildDate(){
-
-    fetch('build_timestamp.txt')
-    .then(response => response.text())
-    .then(data => {
-        document.getElementById('build-timestamp').innerText = data;
-    });
-    console.log('Fetching build timestamp...');
-
-}
-window.onload = getBuildDate;
-getBuildDate();
 
 async function requestWakeLock() {
     try {
@@ -94,7 +80,7 @@ document.getElementById('endBtn').addEventListener('click', () => {
 
 document.getElementById('downloadLogBtn').addEventListener('click', downloadGameLog);
 
-export function startBlindTimer(blindTime) {
+function startBlindTimer(blindTime) {
     if (blinds.length === 0) return;
     
     updateBlindDisplay();
@@ -130,20 +116,20 @@ export function startBlindTimer(blindTime) {
     }, 1000);
 }
 
-export function pauseTimer() {
+function pauseTimer() {
     isPaused = true;
     clearInterval(timerInterval);
     logEvent("Game paused");
 }
 
-export function resumeTimer() {
+function resumeTimer() {
     isPaused = false;
     startTime = Date.now(); // Setze Startzeit neu
     startBlindTimer(timeRemaining); // Fahre fort
     logEvent("Game resumed");
 }
 
-export function resetTimer() {
+function resetTimer() {
     isPaused = false;
     timeRemaining = blindTimeGlobal;
     logEvent("Timer reset");
@@ -151,7 +137,7 @@ export function resetTimer() {
     document.getElementById('resetBtn').disabled = true;
 }
 
-export function endGame() {
+function endGame() {
     clearInterval(timerInterval);
     logEvent("Game ended at: " + new Date().toLocaleString());
     logEvent("Final Blind: " + blinds[currentBlindIndex - 1 + 1]);
@@ -164,11 +150,11 @@ export function endGame() {
     document.getElementById('endBtn').disabled = true;
 }
 
-export function updateBlindDisplay() {
+function updateBlindDisplay() {
     document.getElementById('currentBlind').textContent = `Current Blind: ${blinds[currentBlindIndex]}`;
 }
 
-export function updateTimeDisplay() {
+function updateTimeDisplay() {
     const minutes = Math.floor(timeRemaining / 60);
     const seconds = timeRemaining % 60;
     document.getElementById('timeRemaining').textContent = `Time Remaining: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
@@ -179,7 +165,7 @@ function playWarningSound() {
     audio.play();
 }
 
-export function logEvent(event) {
+function logEvent(event) {
     const timestamp = new Date().toLocaleTimeString();
     gameLog.push(`[${timestamp}] ${event}`);
 }
@@ -206,4 +192,6 @@ document.addEventListener('visibilitychange', () => {
 
     logEvent("visibility changed");
 
-});
+})
+
+;
