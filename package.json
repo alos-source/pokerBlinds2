@@ -12,5 +12,6 @@
   "devDependencies": {},
   "keywords": [],
   "author": "Alexander O.",
-  "license": "ISC"
+  "license": "ISC",
+  "type": "module"
 }
