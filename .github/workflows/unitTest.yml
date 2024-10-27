@@ -3,10 +3,10 @@ name: Run Jest Tests
 on:
   push:
     branches:
-      - main  # Ausführen der Tests bei einem Push zum main-Branch
+      - master  # Ausführen der Tests bei einem Push zum main-Branch
   pull_request:
     branches:
-      - main  # Ausführen der Tests bei einem Pull-Request auf main
+      - master  # Ausführen der Tests bei einem Pull-Request auf main
 
 jobs:
   test:
