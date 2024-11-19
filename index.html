@@ -15,7 +15,7 @@
 
 <body>
     <div class="container">
-        <h1>Poker Blind Timer</h1>
+        <h1>Poker Master Online</h1>
         <div>
             <label for="blindTime">Blind Duration (in minutes):</label>
             <input type="number" id="blindTime" value="15">
@@ -40,17 +40,43 @@
     
     </div>
 
-      <footer>
-        <p>&copy; 2024 PokerTimer. All Rights reserved.</p>
-    <p>
-        <a href="https://github.com/alos-source/pokerBlinds2" target="_blank" rel="noopener noreferrer">
-            Sources on GitHub
-        </a>
-    </p>
+    <footer>
+        <p>2024 www.pokermaster.online</p>
+        <p>
+            <a href="#" id="impressum-link">Impressum</a> | 
+            <a href="#" id="datenschutz-link">Datenschutz</a>
+        </p>
         <p>Last build: <span id="build-timestamp">loading...</span></p>
-    <!--    <p><a href="#">Datenschutz</a> | <a href="#">Impressum</a></p> -->
     </footer>
-      
+    
+    <!-- Modale Fenster für Impressum -->
+    <div id="impressum-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" id="impressum-close">&times;</span>
+            <h2>Impressum</h2>
+            <p>Verantwortlich gemäß § 5 TMG:</p>
+            <p><strong>Max Mustermann</strong><br>
+               Musterstraße 1<br>
+               12345 Musterstadt<br>
+               Deutschland</p>
+            <p>Kontakt: <a href="mailto:info@example.com">info@example.com</a></p>
+            <p>Kontakt: <a href="#" id="email-link" data-user="info" data-domain="pokermaster.online">[E-Mail anzeigen]</a></p>
+        </div>
+    </div>
+    
+    <!-- Modale Fenster für Datenschutz -->
+    <div id="datenschutz-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" id="datenschutz-close">&times;</span>
+            <h2>Datenschutzerklärung</h2>
+            <p>Diese WebApp verarbeitet keine personenbezogenen Daten ohne Zustimmung.</p>
+            <p>Für Fragen wenden Sie sich bitte an <a href="mailto:privacy@example.com">privacy@example.com</a>.</p>
+            <p>Für Fragen wenden Sie sich bitte an <a href="#" id="privacy-email-link" data-user="privacy" data-domain="pokermaster.online">[E-Mail anzeigen]</a>.</p>
+            
+
+        </div>
+    </div>
+    
 
     <script src="app.js"></script>
     <script src="site.js"></script>
