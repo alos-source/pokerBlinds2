@@ -61,6 +61,18 @@ button:disabled {
     color: red;
 }
 
+label {
+    font-size: 1rem;
+    margin-top: 10px;
+    display: block;
+    text-align: center;
+}
+
+input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+
 footer {
     background-color: #333; /* Dunkler Hintergrund */
     color: #fff; /* Weiße Schriftfarbe */

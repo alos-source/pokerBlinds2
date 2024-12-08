@@ -7,7 +7,7 @@ let blindTimeGlobal;
 let startTime;
 let gameLog = [];
 let wakeLock = null;
-
+let soundEnabled = false; // Standardmäßig sind Töne deaktiviert
 
 async function requestWakeLock() {
     try {
@@ -37,6 +37,7 @@ document.getElementById('startBtn').addEventListener('click', () => {
     startTime = Date.now(); // Speichere die Startzeit für die Zeitberechnung
     timeRemaining = blindTimeGlobal;
     startBlindTimer(blindTime);
+    playStartSound();
     
     document.getElementById('gameLogContainer').style.display = 'none';
     logEvent("Game started at: " + new Date(startTime).toLocaleString());
@@ -161,7 +162,14 @@ function updateTimeDisplay() {
 }
 
 function playWarningSound() {
+    if (!soundEnabled) return; // Spiele den Ton nur ab, wenn Sound aktiviert ist
     const audio = new Audio('warning.mp3');
+    audio.play();
+}
+
+function playStartSound() {
+    if (!soundEnabled) return; // Spiele den Ton nur ab, wenn Sound aktiviert ist
+    const audio = new Audio('startsingal.mp3');
     audio.play();
 }
 
@@ -193,5 +201,13 @@ document.addEventListener('visibilitychange', () => {
     logEvent("visibility changed");
 
 })
+
+// Event-Listener für die Sound-Checkbox
+document.getElementById('soundToggle').addEventListener('change', (event) => {
+    soundEnabled = event.target.checked; // Aktualisiere den Sound-Status
+    logEvent(`Sound ${soundEnabled ? 'enabled' : 'disabled'}`);
+});
+
+
 
 ;
