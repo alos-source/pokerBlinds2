@@ -1,19 +1,19 @@
 {
-    "name": "Max Mustermann",
+    "name": "Alexan Oswald",
     "address": {
-        "street": "Musterstraße",
-        "house": "12",
-        "zip": "12345",
-        "city": "Musterstadt"
+        "street": "Anton-Bruckner-Str.",
+        "house": "32",
+        "zip": "91052",
+        "city": "Erlangen"
     },
     "country": "Germany",
     "phone": {
-        "ccode": "+49",
-        "phone1": "1234",
-        "phone2": "567890"
+        "ccode": "+49 (0)",
+        "phone1": "9131 81",
+        "phone2": "43005"
     },
     "email": {
         "user": "info",
-        "domain": "example.com"
+        "domain": "pokermaster.online"
     }
 }
