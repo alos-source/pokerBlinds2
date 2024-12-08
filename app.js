@@ -93,7 +93,7 @@ function startBlindTimer(blindTime) {
             timeRemaining--;
             updateTimeDisplay();
 
-            if (timeRemaining === 30) {
+            if (timeRemaining === 10) {
                 document.getElementById('timeRemaining').classList.add('warning');
                 playWarningSound();
             }
