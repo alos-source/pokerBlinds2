@@ -16,26 +16,6 @@ window.onload = getBuildDate;
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Funktion zum Setzen des E-Mail-Links
-    function setEmailLink(linkId) {
-        const link = document.getElementById(linkId);
-        const user = link.getAttribute('data-user');
-        const domain = link.getAttribute('data-domain');
-
-        if (user && domain) {
-            const email = `${user}@${domain}`;
-            link.setAttribute('href', `mailto:${email}`);
-            link.textContent = email; // Textinhalt des Links setzen
-        }
-    }
-
-    // E-Mail-Adressen entschlüsseln
-    setEmailLink('email-link');
-    setEmailLink('privacy-email-link');
-});
-
-
-document.addEventListener('DOMContentLoaded', () => {
     const impressumModal = document.getElementById('impressum-modal');
     const datenschutzModal = document.getElementById('datenschutz-modal');
 
@@ -75,3 +55,57 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Function to load JSON data
+    async function loadImpressumData() {
+        try {
+            const response = await fetch('impressum.json');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            setImpressumData(data);
+        } catch (error) {
+            console.error('Error loading Impressum data:', error);
+        }
+    }
+
+    // Function to set Impressum data from JSON
+    function setImpressumData(data) {
+        // Name
+        const nameElem = document.getElementById('impressum-name');
+        if (data.name) nameElem.textContent = data.name;
+
+        // Address
+        const addressElem = document.getElementById('impressum-address');
+        if (data.address) {
+            const { street, house, zip, city } = data.address;
+            addressElem.textContent = `${street} ${house}, ${zip} ${city}`;
+        }
+
+        // Country
+        const countryElem = document.getElementById('impressum-country');
+        if (data.country) countryElem.textContent = data.country;
+
+        // Phone
+        const phoneElem = document.getElementById('impressum-phone');
+        if (data.phone) {
+            const { ccode, phone1, phone2 } = data.phone;
+            phoneElem.textContent = `${ccode} ${phone1} ${phone2}`;
+        }
+
+        // Email
+        const emailElem = document.getElementById('impressum-email');
+        if (data.email) {
+            const { user, domain } = data.email;
+            const email = `${user}@${domain}`;
+            emailElem.setAttribute('href', `mailto:${email}`);
+            emailElem.textContent = email;
+        }
+    }
+
+    // Load the Impressum data
+    loadImpressumData();
+});
+

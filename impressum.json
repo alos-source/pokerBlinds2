@@ -1,0 +1,19 @@
+{
+    "name": "Max Mustermann",
+    "address": {
+        "street": "Musterstraße",
+        "house": "12",
+        "zip": "12345",
+        "city": "Musterstadt"
+    },
+    "country": "Germany",
+    "phone": {
+        "ccode": "+49",
+        "phone1": "1234",
+        "phone2": "567890"
+    },
+    "email": {
+        "user": "info",
+        "domain": "example.com"
+    }
+}
