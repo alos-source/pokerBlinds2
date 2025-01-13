@@ -108,7 +108,7 @@ button:active {
 /* Timer and Blind Info */
 #currentBlind, #timeRemaining {
     text-align: center;
-    font-size: 1.5em;
+    font-size: 2.0em;
     margin: 10px 0;
     color: #FFD700;
     text-shadow: 1px 1px #000000;
