@@ -163,13 +163,13 @@ function updateTimeDisplay() {
 
 function playWarningSound() {
     if (!soundEnabled) return; // Spiele den Ton nur ab, wenn Sound aktiviert ist
-    const audio = new Audio('warning.mp3');
+    const audio = new Audio('./media/warning.mp3');
     audio.play();
 }
 
 function playStartSound() {
     if (!soundEnabled) return; // Spiele den Ton nur ab, wenn Sound aktiviert ist
-    const audio = new Audio('startsingal.mp3');
+    const audio = new Audio('./media/startsingal.mp3');
     audio.play();
 }
 

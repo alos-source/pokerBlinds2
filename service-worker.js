@@ -6,7 +6,8 @@ self.addEventListener('install', (e) => {
                 '/index.html',
                 '/styles.css',
                 '/app.js',
-                '/warning.mp3'
+                './media/startsignal.mp3',
+                './media/warning.mp3'
             ]);
         })
     );
