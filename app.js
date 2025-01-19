@@ -169,7 +169,7 @@ function playWarningSound() {
 
 function playStartSound() {
     if (!soundEnabled) return; // Spiele den Ton nur ab, wenn Sound aktiviert ist
-    const audio = new Audio('./media/startsingal.mp3');
+    const audio = new Audio('./media/startsignal.mp3');
     audio.play();
 }
 
